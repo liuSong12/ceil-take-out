@@ -96,14 +96,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         int page = employeePageQueryDTO.getPage();
         int pageSize = employeePageQueryDTO.getPageSize();
-        if (page <= 0) page = 1;
-        if(pageSize <= 0 || pageSize > 20) pageSize = 20;
+        if (page <= 0 ) page = 1;
+        if(pageSize <= 0 || pageSize > 40) pageSize = 10;
         int start = (page - 1) * pageSize;
         String name = employeePageQueryDTO.getName();
         List<Employee> employee = employeeMapper.pageQuery(name, start, pageSize);
         PageResult pageResult = new PageResult();
         pageResult.setRecords(employee);
-        pageResult.setTotal(employee.size());
+        pageResult.setTotal(employeeMapper.total());
         return pageResult;
     }
 
